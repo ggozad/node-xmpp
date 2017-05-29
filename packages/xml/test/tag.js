@@ -3,17 +3,13 @@
 const test = require('ava')
 const xml = require('..')
 const tag = require('../lib/tag')
-const Stanza = require('../lib/Stanza')
 
 test('exported correctly', t => {
   t.is(xml.tag, tag)
 })
 
-test('return a Stanza object if message/iq/presence, an element otherwise', t => {
-  t.true(tag`<message/>` instanceof Stanza)
-
-  t.true(tag`<foo/>` instanceof xml.Element)
-  t.false(tag`<foo/>` instanceof Stanza)
+test('return an instance of Element', t => {
+  t.true(tag`<message/>` instanceof xml.Element)
 })
 
 test('strips whitespaces', t => {

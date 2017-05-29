@@ -1,17 +1,17 @@
 'use strict'
 
 const LtxParser = require('ltx/lib/parsers/ltx')
-const createStanza = require('./createStanza')
 const escape = require('ltx').escapeXML
+const {Element} = require('ltx')
 
-function tag(literals, ...substitutions) {
+module.exports = function tag(literals, ...substitutions) {
   const parser = new LtxParser()
 
   let el
   let tree
   let i
   parser.on('startElement', (name, attrs) => {
-    const child = createStanza(name, attrs)
+    const child = new Element(name, attrs)
     if (el) {
       el = el.cnode(child)
     } else {
@@ -51,5 +51,3 @@ function tag(literals, ...substitutions) {
 
   return tree
 }
-
-module.exports = tag
